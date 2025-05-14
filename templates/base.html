@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyToDo - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="navbar-brand">MyToDo</a>
+            <ul class="navbar-nav">
+                <li><a href="/about_user" class="nav-link {% if request.path == '/about' %}active{% endif %}">About</a></li>
+                <li><a href="/show" class="nav-link {% if request.path == '/show' %}active{% endif %}">My Todos</a></li>
+                <li><a href="/create" class="nav-link {% if request.path == '/create' %}active{% endif %}">Add Todo</a></li>
+                <li><a href="/profile" class="nav-link {% if request.path == '/profile' %}active{% endif %}">Profile</a></li>
+            </ul>
+            <!-- {% if session['user_id'] %}
+            <a href="/logout" class="btn btn-primary">Logout</a>
+            {% endif %} -->
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('logout') }}" class="btn btn-primary">Logout</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- Content Section -->
+    <main class="container">
+        <!-- Alert Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Dynamic Content -->
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Hero Section for Homepage -->
+    {% if request.path == '/' %}
+  <div class="hero-section">
+    <h1>About MyToDo</h1>
+    <div class="about-content">
+        <p class="lead">
+            MyToDo is a simple ToDo list web app. You can add, delete, update and view your ToDos here.<br>
+            In today's busy lifestyle, it's important to stay organized and manage your tasks efficiently. That's where MyToDo comes in.<br>
+            We hope you find MyToDo useful and enjoyable!<br>
+            Happy organizing!
+        </p>
+    </div>
+    
+    <div class="auth-buttons">
+        <a href="/signup" class="btn btn-primary">Sign Up</a>
+        <a href="/login" class="btn btn-outline-primary">Login</a>
+    </div>
+</div>
+    {% endif %}
+
+    <!-- Active Tab Script -->
+    <script>
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if(link.href === window.location.href) {
+                link.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

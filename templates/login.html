@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyToDo - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="navbar-brand">MyToDo</a>
+            <ul class="navbar-nav">
+                <li><a href="/about_guest" class="nav-link">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="auth-card">
+            {% if error %}
+            <div class="alert alert-error">
+                {{ error|safe }}
+            </div>
+            {% endif %}
+            
+            <form action="/login" method="POST">
+                <h2 class="form-title">Welcome Back</h2>
+                
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input type="text" 
+                           class="form-control" 
+                           id="username" 
+                           name="username" 
+                           required
+                           autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" 
+                           class="form-control" 
+                           name="password" 
+                           id="password" 
+                           required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Login</button>
+                
+                <div class="auth-helper">
+                    New to MyToDo? <a href="/signup">Create an account</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

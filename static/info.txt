@@ -1,0 +1,1 @@
+This is info.txt inside static folder. Files inside static folder are for the purpose that users of our website can view them, if they know the name of the file.

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyToDo - About</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="navbar-brand">MyToDo</a>
+            <ul class="navbar-nav">
+                <li><a href="/about_guest" class="nav-link {% if request.path == '/about_guest' %}active{% endif %}">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h1>About MyToDo</h1>
+            <p class="lead">MyToDo is a simple ToDo list web app. You can add, delete, update and view your ToDos here.<br>
+            In today's busy lifestyle, it's important to stay organized and manage your tasks efficiently. That's where MyToDo comes in.<br>
+          We hope you find MyToDo useful and enjoyable!<br>
+        Happy organizing!</p>
+            
+            <div class="auth-buttons">
+                <a href="/signup" class="btn btn-primary">Sign Up</a>
+                <a href="/login" class="btn btn-primary">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Tab Script -->
+    <script>
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if(link.href === window.location.href) {
+                link.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

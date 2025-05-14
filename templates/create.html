@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}
+  Home
+{% endblock title %}
+{% block content %}
+
+<div class="container">
+    <!-- Add Todo Form -->
+    <div class="auth-card">
+        <form action="/create" method="POST">
+            <h2 class="form-title">Add a ToDo</h2>
+            
+            <div class="form-group">
+                <label class="form-label">ToDo Title</label>
+                <input type="text" 
+                       class="form-control" 
+                       name="title" 
+                       id="title" 
+                       required
+                       autofocus>
+                <div class="text-muted">Add ToDos you have to do</div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <input type="text" 
+                       class="form-control" 
+                       name="desc" 
+                       id="desc" 
+                       required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Todo</button>
+        </form>
+    </div>
+
+    <!-- Todo List -->
+    <div class="todo-table-wrapper">
+        {% if alltodos|length == 0 %}
+            <div class="alert alert-info">
+                No ToDos to display. Add your first ToDo now!!
+            </div>
+        {% else %}
+            <h2 class="section-heading">Your ToDos</h2>
+            <table class="todo-table">
+                <thead>
+                    <tr>
+                        <th>SNo</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for todo in alltodos %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ todo.title }}</td>
+                        <td>{{ todo.desc }}</td>
+                        <td class="todo-actions">
+                            <a href="/update/{{ todo.sno }}" class="btn btn-outline-primary">Update</a>
+                            <a href="/delete/{{ todo.sno }}" class="btn btn-outline-danger">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}
